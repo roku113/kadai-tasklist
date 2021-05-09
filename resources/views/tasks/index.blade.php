@@ -3,9 +3,9 @@
 @section('content')
 
 @if (Auth::check())
- <h1>タスク一覧</h1>
+ <h1>{{ Auth::user()->name }}のタスク一覧</h1>
 
-    @if (count($tasks) > 0)
+    @if (count(Auth::user()->tasks) > 0)
         <table class="table table-striped">
             <thead>
                 <tr>
