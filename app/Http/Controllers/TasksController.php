@@ -33,11 +33,7 @@ class TasksController extends Controller
         
         else {
             
-            $tasks= Task::all();
-            
-            return view('tasks.index', [
-                'tasks' => $tasks,
-            ]);
+            return view('tasks.index');
         }
     }
 
@@ -94,9 +90,15 @@ class TasksController extends Controller
     {
         $task = Task::findOrFail($id);
         
-        return view('tasks.show', [
+        if (\Auth::id() === $task->user_id) {
+            return view('tasks.show', [
             'task' => $task,
-        ]);
+            ]);
+        }
+        
+        else {
+        return redirect('/');
+        }
     }
 
     /**
