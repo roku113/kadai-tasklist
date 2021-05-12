@@ -52,9 +52,6 @@ class TasksController extends Controller
         ]);
        
        
-        /**
-        return view('tasks.create');
-        **/
     }
 
     /**
@@ -70,12 +67,10 @@ class TasksController extends Controller
             'content' => 'required|max:255',
         ]);
         
-        $user = \Auth::user();
-
-        $task = new Task;
-        $task->status = $request->status;
-        $task->content = $request->content;
-        $user->tasks()->save($task);
+         $request->user()->tasks()->create([
+             'status' => $request->status,
+             'content' => $request->content,
+         ]);
         
         return redirect('/');
     }
